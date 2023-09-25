@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "tlo"
+version = "0.0.1"
+description = "This project includes an application that allows users to configure traffic objects (e.g., intersections) equipped with traffic lights, using their own parameters such as signal phase length, capacity, number of lanes, and traffic flow. The application then provides an optimized traffic light scheme that minimizes traffic congestion."
+authors = ["freetown113@gmail.com"]
+readme = "README.md"
+packages = [
+  { include = "sumo_rl", from = "src" }
+]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.9.1"
+isort = "^5.12.0"
+mypy = "^1.5.1"
+bandit = "^1.7.5"
+flake8 = "^6.1.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
