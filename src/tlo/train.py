@@ -11,7 +11,7 @@ if "SUMO_HOME" in os.environ:
 else:
     sys.exit("Please declare the environment variable 'SUMO_HOME'")
 
-from sumo_rl import SumoEnvironment
+from sumo_rl import SumoEnvironment  # type: ignore
 
 
 if __name__ == "__main__":
@@ -39,4 +39,4 @@ if __name__ == "__main__":
         verbose=1,
     )
 
-    model.learn(total_timesteps=1e7)
+    model.learn(total_timesteps=int(1e7))

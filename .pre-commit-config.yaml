@@ -20,18 +20,18 @@ repos:
 -   repo: https://github.com/pycqa/pydocstyle
     rev: '6.3.0'
     hooks:
-    -   id: mypy
-    repo: 'https://github.com/python/mypy'
-    args: ["--ignore-missing-imports", "--scripts-are-modules"]
-    rev: '1.5.1'
-    hooks:
-    -   id: bandit
-    repo: 'https://github.com/PyCQA/bandit'
-    args: [-lll, --recursive, .]
-    rev: '1.7.5'
-    hooks:
     -   id: pydocstyle
         args: ['--convention=google', '--add-ignore=D100,D101,D102,D103,D104,D105,D106,D107']
+-   repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.5.1
+    hooks:
+    -   id: mypy
+        args: ["--ignore-missing-imports", "--scripts-are-modules"]
+-   repo: 'https://github.com/PyCQA/bandit'
+    rev: '1.7.5'
+    hooks:
+    -   id: bandit
+        args: [--skip, "B101", --recursive, clumper]
 -   repo: https://github.com/pre-commit/pre-commit-hooks
     rev: 'v4.4.0'
     hooks:

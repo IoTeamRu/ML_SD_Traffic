@@ -2,6 +2,8 @@ NAME := tlo
 SRC := ./src/tlo
 INSTALL_STAMP := .install.tlo
 POETRY := $(shell command -v poetry 2> /dev/null)
+PTR_TML := pyproject.toml 
+PTR_LCK ?= poetry.lock
 
 default: help
 all: install lint format test clean
@@ -19,25 +21,28 @@ help:
 		@echo "Check the Makefile to know exactly what each target is doing."
 
 install: $(INSTALL_STAMP)
-$(INSTALL_STAMP): pyproject.toml poetry.lock
+$(INSTALL_STAMP): $(PTR_TML)
 		@if [ -z $(POETRY) ]; then echo "Poetry could not be found. See https://python-poetry.org/docs/"; exit 2; fi
 		$(POETRY) install
 		touch $(INSTALL_STAMP)
 
-run: 
+run: $(INSTALL_STAMP)
 		echo $(POETRY)
-		$(POETRY) run python3 src/sumo_rl/train.py
+		$(POETRY) run python3 $(SRC)/train.py
 
 clean:
 		find . -type d -name "__pycache__" | xargs rm -rf {};
-		rm -rf $(INSTALL_STAMP) .coverage .mypy_cache
+		rm -rf $(INSTALL_STAMP) .coverage .mypy_cache .pytest_cache
 
 lint: $(INSTALL_STAMP)
 		$(POETRY) run isort --profile=black --lines-after-imports=2 --check-only $(SRC)
 		$(POETRY) run black --check $(SRC) --diff
 		$(POETRY) run flake8 --ignore=W503,E501 $(SRC)
-		$(POETRY) run mypy $(SRC) --ignore-missing-imports
+		$(POETRY) run mypy $(SRC)
 		$(POETRY) run bandit -r $(SRC) -s B608
+
+pre_commit: $(INSTALL_STAMP)
+		$(POETRY) run pre-commit run --files src/tlo/*
 
 format: $(INSTALL_STAMP)
 		$(POETRY) run isort --profile=black --lines-after-imports=2 $(SRC)
