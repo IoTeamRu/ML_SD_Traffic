@@ -2,14 +2,18 @@
 name = "tlo"
 version = "0.0.1"
 description = "This project includes an application that allows users to configure traffic objects (e.g., intersections) equipped with traffic lights, using their own parameters such as signal phase length, capacity, number of lanes, and traffic flow. The application then provides an optimized traffic light scheme that minimizes traffic congestion."
-authors = ["freetown113@gmail.com"]
+authors = ["Andrew <freetown113@gmail.com>"]
 readme = "README.md"
 packages = [
-  { include = "sumo_rl", from = "src" }
+  { include = "tlo", from = "src" }
 ]
 
 [tool.poetry.dependencies]
 python = "^3.10"
+torch = "^2.0.1"
+gymnasium = "^0.29.1"
+stable-baselines3 = "^2.1.0"
+sumo-rl = "^1.4.3"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.9.1"
@@ -17,7 +21,8 @@ isort = "^5.12.0"
 mypy = "^1.5.1"
 bandit = "^1.7.5"
 flake8 = "^6.1.0"
-
+pytest = "^7.4.2"
+pytest-cov = "^4.1.0"
 
 [build-system]
 requires = ["poetry-core"]
