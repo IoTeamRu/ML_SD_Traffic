@@ -2,7 +2,6 @@ import os
 import sys
 
 import torch
-import gymnasium as gym
 from stable_baselines3.dqn.dqn import DQN
 
 
@@ -11,13 +10,12 @@ if "SUMO_HOME" in os.environ:
     sys.path.append(tools)
 else:
     sys.exit("Please declare the environment variable 'SUMO_HOME'")
-import traci
 
-from sumo_rl import SumoEnvironment
+from sumo_rl import SumoEnvironment  # type: ignore
 
 
 if __name__ == "__main__":
-    device = torch.device('cuda:2' if torch.cuda.is_available() else 'cpu')
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     env = SumoEnvironment(
         net_file="data/single-intersection.net.xml",
@@ -27,7 +25,7 @@ if __name__ == "__main__":
         use_gui=False,
         num_seconds=100000,
     )
-    
+
     model = DQN(
         env=env,
         device=device,
@@ -39,6 +37,6 @@ if __name__ == "__main__":
         exploration_initial_eps=0.05,
         exploration_final_eps=0.01,
         verbose=1,
-    ) 
+    )
 
-    model.learn(total_timesteps=1e7)
+    model.learn(total_timesteps=int(1e7))
