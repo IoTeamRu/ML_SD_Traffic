@@ -1,0 +1,104 @@
+{% load static %} 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traffic Lights Optimization</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: row;
+        }
+
+        #left-panel {
+            flex: 1;
+            padding: 20px;
+            background-color: #f0f0f0;
+            text-align: center;
+        }
+
+        #center-panel {
+            flex: 1;
+            padding: 20px;
+            text-align: center;
+        }
+
+        #right-panel {
+            flex: 1;
+            padding: 20px;
+            background-color: #f0f0f0;
+            text-align: center;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Traffic Lights Optimization</h1>
+    </header>
+    <main>
+        <div id="left-panel">
+            <h2>Model's Results</h2>
+            <table border="1">
+                <tr>
+                    <th>Model 1</th>
+                    <th>Model 2</th>
+                </tr>
+                <tr>
+                    <td>{{result}}</td>
+                    <td>Data 2</td>
+                </tr>
+                <!-- Add more rows here -->
+            </table>
+            <div>
+                <!-- Place for buttons -->
+                <button type="submit" name="complete" value="Complete">&nbsp;Complete</button>
+                
+                <form method="post" action="{% url 'trigger_task' %}">
+                {% csrf_token %}
+                <label for="arg1">Argument 1:</label>
+                <input type="text" id="arg1" name="arg1" required>
+                <button type="submit">Run Celery Task</button>
+                </form>
+            </div>
+        </div>
+        <div id="center-panel">
+            <h2>Image</h2>
+            <img src="{% static 'sumo_image.gif' %}" alt="Schema" width="500">
+        </div>
+        <div id="right-panel">
+            <h2>Graphics</h2>
+            <!-- Place for graphics or charts -->
+        </div>
+    </main>
+    <footer>
+        <h3>Enter Data</h3>
+        <input type="text" placeholder="Enter data here">
+    </footer>
+</body>
+</html>
+

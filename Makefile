@@ -26,9 +26,13 @@ $(INSTALL_STAMP): $(PTR_TML)
 		$(POETRY) install
 		touch $(INSTALL_STAMP)
 
-run: $(INSTALL_STAMP)
+train: $(INSTALL_STAMP)
 		echo $(POETRY)
 		$(POETRY) run python3 $(SRC)/train.py
+
+inference: $(INSTALL_STAMP)
+		echo $(POETRY)
+		$(POETRY) run python3 $(SRC)/inference.py
 
 clean:
 		find . -type d -name "__pycache__" | xargs rm -rf {};

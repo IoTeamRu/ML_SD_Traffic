@@ -23,7 +23,7 @@ if __name__ == "__main__":
         out_csv_name="outputs/2way-single-intersection/dqn",
         single_agent=True,
         use_gui=False,
-        num_seconds=100000,
+        num_seconds=10000,
     )
 
     model = DQN(
@@ -39,4 +39,5 @@ if __name__ == "__main__":
         verbose=1,
     )
 
-    model.learn(total_timesteps=int(1e7))
+    model.learn(total_timesteps=int(1e6))
+    model.save('saved_models/DQN_model')
