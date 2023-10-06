@@ -1,0 +1,43 @@
+general:
+  log_level: DEBUG
+  data_scripts:
+    path: data
+
+data:
+  path: src/core/data
+  instructions_path: src/core/data
+  instructions: nets
+  source_path: src/core/data/nets
+  scenarios: [2way-single-intersection, single-intersection, 2x2grid, 3x3grid, 4x4loop]
+
+train:
+  script_path: src/training/train.py
+  model_path: src/core/saved_models
+  model_name: DQN_model.zip
+  dir_reports:
+  device_id: 0
+  environment:
+    net_file:
+    route_file:
+    agent_result:
+    single_agent:
+  hyper:
+    policy: 
+    lr:
+    start_learning:
+    train_freq: 
+    target_update:
+    eps_start:
+    eps_stop: 
+    verbose: 
+
+metrics:
+  reward: 0.05
+  lift_curve_step: 0.1
+  raw_metrics_path: metrics_train_raw.csv
+  agg_metrics_path: metrics_train_agg.json
+
+plots:
+  reward: lift_curve_train.png
+  confusion_matrix_path: 'confusion_matrix.png'
+

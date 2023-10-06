@@ -1,0 +1,46 @@
+vars:
+  config:
+    - config/config.yaml
+
+stages:
+
+  download_scenarios:
+    cmd: bash ${config.general.data_scripts.path}/download_scenarios.bash ${config.data.scenarios_path}
+    deps:
+    - ${config.general.data_scripts.path}/download_scenarios.bash
+    params:
+      config:
+      - general
+      - data
+    outs:
+    - ${config.data.path}/${data.scenarios}
+
+  clean_data:
+    cmd: poetry run python3 data/clean_data.py --config=config
+    deps:
+    - ${config.data.path}/${data.scenarios}
+    - ${config.general.data_scripts.path}/clean_data.py
+    params:
+      config:
+      - data
+    outs:
+    - ${config.data.path}/${data.scenarios}
+
+  train_agent:
+    cmd: poetry run python3 ${config.train.script_path} --config=config
+    deps:
+    - ${config.data.path}/${data.scenarios}
+    - ${config.train.script_path}
+    params:
+      config:
+      - train
+    outs:
+    - ${config.train.model_path}/${config.train.model_name}
+    metrics:
+    - ${config.train.dir_reports}/${metrics.reward}:
+        cache: false
+    plots:
+    - ${config.train.dir_reports}/${plots.reward}:
+        cache: false
+
+
