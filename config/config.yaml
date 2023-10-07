@@ -13,31 +13,31 @@ data:
 train:
   script_path: src/training/train.py
   model_path: src/core/saved_models
-  model_name: DQN_model.zip
+  model_name: DQN_model
   dir_reports:
   device_id: 0
+  scenario: 2way-single-intersection
   environment:
-    net_file:
-    route_file:
-    agent_result:
-    single_agent:
+    net_file: single-intersection.net.xml
+    route_file: single-intersection-vhvh.rou.xml
+    agent_result: src/training/results
+    single_agent: True
+    gui: False
+    num_steps: 10000
   hyper:
-    policy: 
-    lr:
-    start_learning:
-    train_freq: 
-    target_update:
-    eps_start:
-    eps_stop: 
-    verbose: 
+    policy: MlpPolicy
+    lr: 1e-3
+    start_learning: 0
+    train_freq: 1
+    total_steps: 1e5
+    target_update: 500
+    eps_start: 0.05
+    eps_stop: 0.01
+    verbose: 1
 
 metrics:
-  reward: 0.05
-  lift_curve_step: 0.1
-  raw_metrics_path: metrics_train_raw.csv
-  agg_metrics_path: metrics_train_agg.json
+  raw_metrics_path: reward.csv
 
 plots:
-  reward: lift_curve_train.png
-  confusion_matrix_path: 'confusion_matrix.png'
+  plot_path: 'reward.png'
 

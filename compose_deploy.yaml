@@ -33,10 +33,6 @@ services:
 
   flower:
     image: mher/flower
-    #build:
-    #  context: './'
-    #  dockerfile: docker/Dockerfile
-    #command: ["celery", "-A", "flower"]
     command: ["celery", "--broker=redis://redis_srv:6379/0", "flower"]
     privileged: true
     ports:

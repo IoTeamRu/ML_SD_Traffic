@@ -16,7 +16,6 @@ def clean_data(config_path):
             try:
                 f, e = os.path.splitext(os.path.splitext(file)[0])
                 if e != '.net' and e != '.rou':
-                    print(file, os.path.join(root, file))
                     os.remove(os.path.join(root, file))
             except Exception as e:
                 pass

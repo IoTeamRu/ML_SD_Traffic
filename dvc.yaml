@@ -27,7 +27,7 @@ stages:
     - ${config.data.path}/${data.scenarios}
 
   train_agent:
-    cmd: poetry run python3 ${config.train.script_path} --config=config
+    cmd: docker compose -f compose_train up
     deps:
     - ${config.data.path}/${data.scenarios}
     - ${config.train.script_path}

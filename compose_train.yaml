@@ -1,0 +1,15 @@
+version: "3.9"
+
+services:
+
+  train:
+    environment:
+    - SUMO_HOME='/usr/share/sumo'
+    - PYTHONPATH=$PYTHONPATH:/work
+    build:
+      context: './'
+      dockerfile: docker/Dockerfile_train
+    volumes:
+      - /home/ans/work/traffic/src/core/saved_models:/work/src/core/saved_models
+    command: ["poetry", "run", "python3", "/work/src/training/train.py", "--config=/work/config/config.yaml"]
+    privileged: true
