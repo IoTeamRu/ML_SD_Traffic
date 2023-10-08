@@ -8,3 +8,4 @@ git checkout
 mv nets ..
 cd ..
 rm -fr ./sumo-rl
+echo 'Scenarios were downloaded successfuly'

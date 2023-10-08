@@ -20,14 +20,14 @@ if __name__ == "__main__":
     args_parser.add_argument('--config', dest='config', required=True)
     args = args_parser.parse_args()
     config_path=args.config
-    print(f'is sumo dir exist {os.path.isdir('/usr/share/sumo')}')
-    print(f'ENV variables: {os.environ}')
+    #print(f'is sumo dir exist {os.path.isdir("/usr/share/sumo")}')
+    #print(f'ENV variables: {os.environ}')
     config = load_config(config_path)
     env_cfg = config.train.environment
     alg_cfg = config.train.hyper
-    print(f'CUDA is available {torch.cuda.is_available()}')
+    #print(f'CUDA is available {torch.cuda.is_available()}')
     device = torch.device(f'cuda:{int(config.train.device_id)}' if torch.cuda.is_available() else "cpu")
-    print(f'Launch agent training on {device}')
+    #print(f'Launch agent training on {device}')
     env = SumoEnvironment(
         net_file=os.path.join(config.data.source_path, config.train.scenario, env_cfg.net_file),
         route_file=os.path.join(config.data.source_path, config.train.scenario, env_cfg.route_file),

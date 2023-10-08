@@ -7,10 +7,10 @@ from utils import load_config
 def clean_data(config_path):
     config = load_config(config_path)
 
-    for root, dirs, files in os.walk(config.data.source_path):
+    for root, dirs, files in os.walk(config.data.temp_path):
         directory = root.split('/')[-1]
         if directory not in config.data.scenarios:
-            if root != config.data.source_path:
+            if root != config.data.temp_path:
                 shutil.rmtree(root)
         for file in files:
             try:
@@ -19,6 +19,8 @@ def clean_data(config_path):
                     os.remove(os.path.join(root, file))
             except Exception as e:
                 pass
+
+    os.rename(config.data.temp_path, config.data.source_path)
 
 
 if __name__=='__main__':

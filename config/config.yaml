@@ -4,16 +4,16 @@ general:
     path: data
 
 data:
-  path: src/core/data
-  instructions_path: src/core/data
-  instructions: nets
-  source_path: src/core/data/nets
+  scenarios_path: src/core/data
+  temp_path: src/core/data/nets
+  source_path: src/core/data/scenarios
   scenarios: [2way-single-intersection, single-intersection, 2x2grid, 3x3grid, 4x4loop]
 
 train:
   script_path: src/training/train.py
   model_path: src/core/saved_models
   model_name: DQN_model
+  model_file: DQN_model.zip
   dir_reports:
   device_id: 0
   scenario: 2way-single-intersection
@@ -34,6 +34,9 @@ train:
     eps_start: 0.05
     eps_stop: 0.01
     verbose: 1
+
+compose:
+  script_path: compose_train.yaml
 
 metrics:
   raw_metrics_path: reward.csv
