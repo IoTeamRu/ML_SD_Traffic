@@ -1,0 +1,46 @@
+general:
+  log_level: DEBUG
+  data_scripts:
+    path: data
+
+data:
+  scenarios_path: src/core/data
+  temp_path: src/core/data/nets
+  source_path: src/core/data/scenarios
+  scenarios: [2way-single-intersection, single-intersection, 2x2grid, 3x3grid, 4x4loop]
+
+train:
+  script_path: src/training/train.py
+  model_path: src/core/saved_models
+  model_name: DQN_model
+  model_file: DQN_model.zip
+  dir_reports:
+  device_id: 0
+  scenario: 2way-single-intersection
+  environment:
+    net_file: single-intersection.net.xml
+    route_file: single-intersection-vhvh.rou.xml
+    agent_result: src/training/results
+    single_agent: True
+    gui: False
+    num_steps: 10000
+  hyper:
+    policy: MlpPolicy
+    lr: 1e-3
+    start_learning: 0
+    train_freq: 1
+    total_steps: 1e5
+    target_update: 500
+    eps_start: 0.05
+    eps_stop: 0.01
+    verbose: 1
+
+compose:
+  script_path: compose_train.yaml
+
+metrics:
+  raw_metrics_path: reward.csv
+
+plots:
+  plot_path: 'reward.png'
+

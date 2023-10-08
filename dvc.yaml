@@ -1,0 +1,38 @@
+vars:
+  - config/config.yaml
+
+stages:
+
+  download_scenarios:
+    cmd: bash ${general.data_scripts.path}/download_scenarios.bash ${data.scenarios_path}
+    deps:
+      - ${general.data_scripts.path}/download_scenarios.bash
+    outs:
+      - ${data.temp_path}:
+          cache: false
+
+  handle_data:
+    cmd: poetry run python3 data/clean_data.py --config=config/config.yaml
+    deps:
+      - ${data.temp_path}
+      - ${general.data_scripts.path}/clean_data.py
+    outs:
+      - ${data.source_path}:
+          persist: true
+
+  train_agent:
+    cmd: docker compose -f ${compose.script_path} up --build
+    deps:
+      - ${data.source_path}
+      - ${compose.script_path}
+    outs:
+      - ${train.model_path}/${train.model_file}
+    #metrics:
+    #  - ${train.dir_reports}/${metrics.reward}:
+    #      cache: false
+
+  clean:
+    cmd: docker compose -f ${compose.script_path} down
+    deps:
+      - ${train.model_path}/${train.model_file}
+      - ${compose.script_path}
