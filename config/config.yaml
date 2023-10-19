@@ -12,8 +12,8 @@ data:
 train:
   script_path: src/training/train.py
   model_path: src/core/saved_models
-  model_name: DQN_model
-  model_file: DQN_model.zip
+  model_name: model
+  model_file: model.pth
   dir_reports:
   device_id: 0
   scenario: 2way-single-intersection
@@ -25,15 +25,39 @@ train:
     gui: False
     num_steps: 10000
   hyper:
-    policy: MlpPolicy
-    lr: 1e-3
-    start_learning: 0
-    train_freq: 1
-    total_steps: 1e5
-    target_update: 500
-    eps_start: 0.05
-    eps_stop: 0.01
-    verbose: 1
+    epsilon_start: 1.0
+    epsilon_final: 0.01
+    epsilon_decay: 30000
+    gamma: 0.99
+    lr: 1e-4
+    target_update_freq: 1000
+    exp_replay_size: 100000
+    batch_size: 32
+    alpha: 0.6
+    beta: 0.4
+    beta_raise: 100000
+    beta_stop: 1
+    learn_start: int(1e3)
+    steps: int(1e4)
+    use_lr_decay: False
+    use_soft_update: False
+    grad_clip: False
+
+deploy:
+  script_path: src/training/train.py
+  model_path: src/core/saved_models
+  model_file: model.pth
+  evaluate_times: 10
+  verbose: True
+  device_id: 0
+  scenario: 2way-single-intersection
+  environment:
+    net_file: single-intersection.net.xml
+    route_file: single-intersection-vhvh.rou.xml
+    agent_result: src/training/results
+    single_agent: True
+    gui: False
+    num_steps: 10000
 
 compose:
   script_path: compose_train.yaml

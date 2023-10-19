@@ -1,7 +1,16 @@
 import torch
 from torch import nn
 
+
 class Model(nn.Module):
+    """
+    We are using a [dueling network](https://papers.labml.ai/paper/1511.06581)
+     to calculate Q-values.
+    Intuition behind dueling network architecture is that in most states
+     the action doesn't matter, and in some states the action is significant. 
+     Dueling network allows this to be represented very well.
+    """
+
     def __init__(self, in_ch, num_actions):
         super().__init__()
         self.pre = nn.Sequential(
@@ -29,3 +38,4 @@ class Model(nn.Module):
         q = state_value + action_score_centered
 
         return q
+    
