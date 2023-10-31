@@ -27,18 +27,18 @@ train:
   hyper:
     epsilon_start: 1.0
     epsilon_final: 0.01
-    epsilon_decay: 30000
+    epsilon_decay: 800000
     gamma: 0.99
-    lr: 1e-4
+    lr: 0.0001
     target_update_freq: 1000
     exp_replay_size: 100000
-    batch_size: 32
+    batch_size: 64
     alpha: 0.6
     beta: 0.4
-    beta_raise: 100000
+    beta_raise: 800000
     beta_stop: 1
-    learn_start: int(1e3)
-    steps: int(1e4)
+    learn_start: 1000
+    steps: 1000000
     use_lr_decay: False
     use_soft_update: False
     grad_clip: False

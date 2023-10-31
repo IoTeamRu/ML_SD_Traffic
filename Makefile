@@ -1,5 +1,5 @@
 NAME := tlo
-SRC := ./src/tlo
+SRC := ./src/core/tlo
 INSTALL_STAMP := .install.tlo
 POETRY := $(shell command -v poetry 2> /dev/null)
 PTR_TML := pyproject.toml 
@@ -23,10 +23,9 @@ help:
 install: $(INSTALL_STAMP)
 $(INSTALL_STAMP): $(PTR_TML)
 		@if [ -z $(POETRY) ]; then echo "Poetry could not be found. See https://python-poetry.org/docs/"; exit 2; fi
-		echo 'export SUMO_HOME="/usr/share/sumo"' >> ~/.bashrc
-                echo 'export PYTHONPATH=$PYTHONPATH:/"$PWD"' >> ~/.bashrc
-                source ~/.bashrc
-                $(POETRY) install
+		export SUMO_HOME="/usr/share/sumo"
+		export PYTHONPATH=$(PYTHONPATH):$(PWD)
+		$(POETRY) install
 		touch $(INSTALL_STAMP)
 
 train: $(INSTALL_STAMP)

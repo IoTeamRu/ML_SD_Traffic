@@ -30,6 +30,8 @@ flake8 = "^6.1.0"
 pytest = "^7.4.2"
 pytest-cov = "^4.1.0"
 pre-commit = "^3.4.0"
+monkeytype = "^23.3.0"
+types-pyyaml = "^6.0.12.12"
 
 [build-system]
 requires = ["poetry-core"]

@@ -3,6 +3,7 @@ repos:
     rev: '23.9.1'
     hooks:
     -   id: black
+        stages: [commit]
 -   repo: https://github.com/PyCQA/flake8
     rev: '6.1.0'
     hooks:
@@ -31,10 +32,21 @@ repos:
     rev: '1.7.5'
     hooks:
     -   id: bandit
-        args: [--skip, "B101", --recursive, clumper]
+        args: [--skip, "B101,B311", --recursive] # args: ['--exclude=tests', '--skip=B311, B101', --recursive]
 -   repo: https://github.com/pre-commit/pre-commit-hooks
     rev: 'v4.4.0'
     hooks:
     -   id: check-ast
     -   id: end-of-file-fixer
     -   id: trailing-whitespace
+-   repo: https://github.com/econchick/interrogate
+    rev: '1.4.0'  
+    hooks:
+    -   id: interrogate
+        exclude: tests/test_pattern_matching.py
+        args: [-vv, -i, --fail-under=90]
+-   repo: https://github.com/asottile/pyupgrade
+    rev: v2.31.0
+    hooks:
+      - id: pyupgrade
+        args: [--py311-plus]
