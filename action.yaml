@@ -38,6 +38,6 @@ runs:
     GIT_COMMIT_HASH: ${{ inputs.gitCommitHash }}
   args:
     - "--diff-chunk-size=${{ inputs.pullRequestChunkSize }}"
-    - "--diff='import this do nothing'"
+    - "--diff=${{ inputs.pullRequestDiff }}"
     - "--log-level=${{ inputs.logLevel }}"
-  pre-entrypoint: './review/setup.sh'
+  pre-entrypoint: '/app/run_server.bash'
