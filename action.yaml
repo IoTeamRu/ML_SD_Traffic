@@ -36,5 +36,6 @@ runs:
     GIT_COMMIT_HASH: ${{ inputs.gitCommitHash }}
   args:
     - "--diff-chunk-size=${{ inputs.pullRequestChunkSize }}"
-    - "--diff=${{ inputs.pullRequestDiff }}"
+    # - "--diff=${{ inputs.pullRequestDiff }}"
+    - "--diff='import this do nothing'"
     - "--log-level=${{ inputs.logLevel }}"
