@@ -1,7 +1,9 @@
 name: "Code Review"
 
 on:
-  pull_request:
+  push:
+    branches: ['refactoring_stage1']
+  # pull_request:
     paths-ignore:
       - '*.md'
       - 'LICENSE'
