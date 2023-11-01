@@ -2,4 +2,4 @@
 
 ollama serve &
 echo 'ollama server started'
-python3 entrypoint.py
+python3 /app/entrypoint.py
