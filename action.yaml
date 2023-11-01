@@ -28,7 +28,7 @@ inputs:
     default: "INFO"
 runs:
   using: docker
-  image: docker/Dockerfile_review
+  image: 'docker/Dockerfile_review'
   env:
     GITHUB_TOKEN: ${{ inputs.githubToken }}
     GITHUB_REPOSITORY: ${{ inputs.githubRepository }}
