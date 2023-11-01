@@ -1,0 +1,40 @@
+name: 'Code Review'
+inputs:
+  githubToken:
+    description: 'Github token to access the repo'
+    required: true
+  githubRepository:
+    description: "The GitHub repository to use for the action"
+    required: true
+    default: "${{ github.repository }}"
+  githubPullRequestNumber:
+    description: "The GitHub pull request number to use for the action"
+    required: true
+    default: "${{ github.event.pull_request.number }}"
+  gitCommitHash:
+    description: "The GitHub commit hash to use for the action"
+    required: true
+    default: "${{ github.event.pull_request.head.sha }}"
+  pullRequestDiff:
+    description: "Pull request diff"
+    required: true
+  pullRequestChunkSize:
+    description: "Pull request chunk size"
+    required: false
+    default: "500"
+  logLevel:
+    description: "Log level"
+    required: false
+    default: "INFO"
+runs:
+  using: docker
+  image: docker/Dockerfile_review
+  env:
+    GITHUB_TOKEN: ${{ inputs.githubToken }}
+    GITHUB_REPOSITORY: ${{ inputs.githubRepository }}
+    GITHUB_PULL_REQUEST_NUMBER: ${{ inputs.githubPullRequestNumber }}
+    GIT_COMMIT_HASH: ${{ inputs.gitCommitHash }}
+  args:
+    - "--diff-chunk-size=${{ inputs.pullRequestChunkSize }}"
+    - "--diff=${{ inputs.pullRequestDiff }}"
+    - "--log-level=${{ inputs.logLevel }}"

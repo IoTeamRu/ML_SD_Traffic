@@ -19,6 +19,11 @@ jobs:
       pull-requests: write
     steps:
       - uses: actions/checkout@v3
+      # - name: build project
+      #   container:
+      #     image: "docker/Dockerfile_review"
+      #     volumes:
+      #       - .:/app
       - name: "Get diff of the pull request"
         id: get_diff
         shell: bash
