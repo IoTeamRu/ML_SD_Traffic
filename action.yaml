@@ -1,4 +1,6 @@
 name: 'Code Review'
+description: 'Auto code review'
+author: 'Andrew'
 inputs:
   githubToken:
     description: 'Github token to access the repo'
@@ -28,7 +30,7 @@ inputs:
     default: "INFO"
 runs:
   using: 'docker'
-  image: './docker/Dockerfile_review'
+  image: 'Dockerfile'
   env:
     GITHUB_TOKEN: ${{ inputs.githubToken }}
     GITHUB_REPOSITORY: ${{ inputs.githubRepository }}
@@ -38,3 +40,4 @@ runs:
     - "--diff-chunk-size=${{ inputs.pullRequestChunkSize }}"
     - "--diff='import this do nothing'"
     - "--log-level=${{ inputs.logLevel }}"
+  pre-entrypoint: './review/setup.sh'
