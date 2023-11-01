@@ -158,5 +158,6 @@ def main(
 
 if __name__ == "__main__":
     # pylint: disable=no-value-for-parameter
-    # subprocess.run(["ollama", "serve"], shell=True)
+    print('Run ollama server')
+    subprocess.run(["ollama", "serve"], shell=True)
     main()
