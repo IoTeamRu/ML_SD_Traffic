@@ -123,6 +123,8 @@ def format_review_comment(summarized_review: str, chunked_reviews: List[str]) ->
 @click.option("--diff", type=click.STRING, required=True, help="Pull request diff")
 @click.option("--diff-chunk-size", type=click.INT, required=False, default=500, help="Pull request diff")
 @click.option("--log-level", type=click.STRING, required=False, default="INFO", help="Presence penalty")
+
+
 def main(
         diff: str,
         diff_chunk_size: int,
