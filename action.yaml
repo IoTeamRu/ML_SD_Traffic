@@ -40,4 +40,4 @@ runs:
     - "--diff-chunk-size=${{ inputs.pullRequestChunkSize }}"
     - "--diff=${{ inputs.pullRequestDiff }}"
     - "--log-level=${{ inputs.logLevel }}"
-  pre-entrypoint: '/app/run_server.bash'
+  # pre-entrypoint: '/app/run_server.bash'

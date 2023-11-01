@@ -1,3 +1,5 @@
 #!/bin/bash
 
-ollama serve
+ollama serve &
+echo 'ollama server started'
+python3 entrypoint.py
