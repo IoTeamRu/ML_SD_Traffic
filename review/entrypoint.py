@@ -132,6 +132,10 @@ def main(
 ):
     # Set log level
     logger.level(log_level)
+
+    print('Run ollama server')
+    subprocess.call(['bash', '/app/run_server.bash'])
+
     # Check if necessary environment variables are set or not
     check_required_env_vars()
 
@@ -158,6 +162,4 @@ def main(
 
 if __name__ == "__main__":
     # pylint: disable=no-value-for-parameter
-    print('Run ollama server')
-    subprocess.run(["bash", "/app/run_server.bash"], shell=True)
     main()
