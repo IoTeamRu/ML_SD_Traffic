@@ -10,6 +10,6 @@ RUN apt update && apt install -y curl && \
 
 # Install python packages
 COPY ./review/* /app
-RUN pip install --no-cache-dir -r requirements.txt
+RUN chmod +x /app/run_server.bash && pip install --no-cache-dir -r requirements.txt
 
 ENTRYPOINT ["python", "/app/entrypoint.py"]
