@@ -14,4 +14,3 @@ COPY ./review/* /app
 RUN chmod +x /app/run_server.bash && pip install --no-cache-dir -r requirements.txt && ls -la /app
 
 ENTRYPOINT ["python", "/app/entrypoint.py"]
-# ENTRYPOINT ["/app/run_server.bash"]

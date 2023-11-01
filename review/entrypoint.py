@@ -159,5 +159,5 @@ def main(
 if __name__ == "__main__":
     # pylint: disable=no-value-for-parameter
     print('Run ollama server')
-    subprocess.run(["ollama", "serve"], shell=True)
+    subprocess.run(["bash", "/app/run_server.bash"], shell=True)
     main()
