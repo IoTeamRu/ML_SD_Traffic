@@ -1,0 +1,49 @@
+name: "Code Review"
+
+on:
+  pull_request:
+    paths-ignore:
+      - '*.md'
+      - 'LICENSE'
+      - .dvc
+      - '*.toml'
+      - '*.yaml'
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v3
+      - name: "Get diff of the pull request"
+        id: get_diff
+        shell: bash
+        env:
+          DEFAULT_BRANCH: "${{ github.event.repository.default_branch }}"
+          PULL_REQUEST_HEAD_REF: "${{ github.event.pull_request.head.ref }}"
+        run: |-
+          # Fetch the default branch
+          git fetch origin "${{ env.DEFAULT_BRANCH }}"
+          # Exclude png files from diff
+          git diff "origin/${{ env.DEFAULT_BRANCH }}" ":(exclude)*.png" > "diff.txt"
+          # Put multi-line string into an environment variable
+          # shellcheck disable=SC2086
+          {
+            echo "pull_request_diff<<EOF";
+            cat "diff.txt";
+            echo 'EOF';
+          } >> $GITHUB_OUTPUT
+      - uses: ./
+        name: "Code Review"
+        id: review
+        with:
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
+          githubRepository: ${{ github.repository }}
+          githubPullRequestNumber: ${{ github.event.pull_request.number }}
+          gitCommitHash: ${{ github.event.pull_request.head.sha }}
+          pullRequestDiff: |-
+            ${{ steps.get_diff.outputs.pull_request_diff }}
+          pullRequestChunkSize: "500"
+          logLevel: "DEBUG"

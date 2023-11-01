@@ -3,7 +3,7 @@ FROM nvidia/cuda:12.1.0-cudnn8-devel-ubuntu22.04
 ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt update && apt install -y make python3-pip
-RUN pip install poetry
+RUN pip install poetry torch==1.12.1
 RUN mkdir -p /work
 COPY . /work
 
