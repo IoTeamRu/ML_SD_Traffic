@@ -27,8 +27,8 @@ inputs:
     required: false
     default: "INFO"
 runs:
-  using: docker
-  image: 'docker/Dockerfile_review'
+  using: 'docker'
+  image: './docker/Dockerfile_review'
   env:
     GITHUB_TOKEN: ${{ inputs.githubToken }}
     GITHUB_REPOSITORY: ${{ inputs.githubRepository }}
@@ -36,6 +36,5 @@ runs:
     GIT_COMMIT_HASH: ${{ inputs.gitCommitHash }}
   args:
     - "--diff-chunk-size=${{ inputs.pullRequestChunkSize }}"
-    # - "--diff=${{ inputs.pullRequestDiff }}"
     - "--diff='import this do nothing'"
     - "--log-level=${{ inputs.logLevel }}"
